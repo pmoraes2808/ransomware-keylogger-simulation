@@ -1,0 +1,103 @@
+💻 PARTE 1: CÓDIGOS DAS SIMULAÇÕES (educacionais e seguros)
+
+# ransomware_simulado.py
+import os
+import base64
+
+# Caminho da pasta com arquivos simulados
+PASTA_ALVOS = "samples"
+PASTA_BACKUP = "backup_simulado"
+
+# Certifique-se de que a pasta de backup exista
+os.makedirs(PASTA_BACKUP, exist_ok=True)
+
+def criptografar_simulado(caminho_arquivo):
+    with open(caminho_arquivo, "rb") as f:
+        conteudo = f.read()
+    conteudo_criptografado = base64.b64encode(conteudo)
+    
+    with open(caminho_arquivo, "wb") as f:
+        f.write(conteudo_criptografado)
+
+def descriptografar_simulado(caminho_arquivo):
+    with open(caminho_arquivo, "rb") as f:
+        conteudo = f.read()
+    conteudo_original = base64.b64decode(conteudo)
+    
+    with open(caminho_arquivo, "wb") as f:
+        f.write(conteudo_original)
+
+def executar_ransomware_simulado():
+    print("[*] Iniciando simulação de ransomware...")
+
+    for arquivo in os.listdir(PASTA_ALVOS):
+        caminho_completo = os.path.join(PASTA_ALVOS, arquivo)
+
+        if os.path.isfile(caminho_completo):
+            # Backup do arquivo original
+            os.rename(caminho_completo, os.path.join(PASTA_BACKUP, arquivo))
+
+            # Reabrir do backup e criptografar
+            backup_path = os.path.join(PASTA_BACKUP, arquivo)
+            criptografar_simulado(backup_path)
+
+            # Copiar criptografado para pasta original (simulação do ataque)
+            with open(backup_path, "rb") as f:
+                conteudo = f.read()
+            with open(caminho_completo, "wb") as f:
+                f.write(conteudo)
+
+    with open("README_RESCUE.txt", "w") as f:
+        f.write("Seus arquivos foram criptografados!\nPague 0.0 BTC para recuperar (simulação).")
+    print("[+] Simulação concluída.")
+
+def restaurar_arquivos():
+    print("[*] Restaurando arquivos...")
+
+    for arquivo in os.listdir(PASTA_BACKUP):
+        caminho_completo = os.path.join(PASTA_BACKUP, arquivo)
+
+        if os.path.isfile(caminho_completo):
+            descriptografar_simulado(caminho_completo)
+
+            # Restaurar para a pasta original
+            with open(caminho_completo, "rb") as f:
+                conteudo = f.read()
+            with open(os.path.join(PASTA_ALVOS, arquivo), "wb") as f:
+                f.write(conteudo)
+
+    print("[+] Arquivos restaurados com sucesso!")
+
+# Para rodar a simulação
+if __name__ == "__main__":
+    executar_ransomware_simulado()
+    # restaurar_arquivos()  # Descomente para restaurar
+
+📁 Crie uma pasta samples/ com .txt de exemplo.
+
+🕵️ 2. Keylogger Simulado com Python (sem teclas reais)
+
+# keylogger_simulado.py
+import time
+
+# Lista de "teclas" simuladas
+teclas_simuladas = ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d", "\n"]
+
+def simular_keylogger():
+    with open("log_simulado.txt", "a") as f:
+        for tecla in teclas_simuladas:
+            f.write(tecla)
+            print(f"[LOG] Capturado: {tecla}")
+            time.sleep(0.3)
+
+def enviar_email_simulado():
+    print("[EMAIL] Simulação de envio de email com o log para: admin@exemplo.com")
+
+if __name__ == "__main__":
+    simular_keylogger()
+    enviar_email_simulado()
+
+✅ Este script não registra teclas reais, apenas simula o processo de forma segura para fins educativos.
+
+
+
